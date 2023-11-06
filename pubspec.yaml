@@ -19,6 +19,7 @@ dependencies:
   file_picker:
   path_provider:
   google_mobile_ads: 
+  flutter_pdfview: ^1.2.7
 
 dev_dependencies:
   flutter_test:

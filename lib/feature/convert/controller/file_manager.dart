@@ -107,6 +107,7 @@ class FileManager {
   Future<File?> addFile(BuildContext context) async {
     File? selectedFile = await pickFile();
     if (selectedFile != null) {
+      print("selectedFile::::$selectedFile");
       Directory appDocDir = await getApplicationDocumentsDirectory();
       String appDocPath = appDocDir.path;
       final File localFile = await selectedFile

@@ -59,6 +59,7 @@ Widget floatingButtons(
         ),
         onTap: () async {
           File? newFile = await fileManager.addFile(context);
+          print("플러팅 버튼에서 newFile:::::$newFile");
           if (newFile != null) {
             onAddFile(newFile.path);
           }

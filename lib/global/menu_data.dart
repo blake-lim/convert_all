@@ -12,7 +12,6 @@ class FileItem {
 
   set path(String newPath) {
     _path = newPath; // path의 setter
-    print('여길타긴탐??$_path');
   }
 }
 

@@ -158,11 +158,14 @@ class MyBoxScreenState extends State<MyBoxScreen> {
         (String folderPath) {
           setState(() {
             files.insert(0, FileItem(path: folderPath, isFolder: true));
+            print("1111추가하고$folderPath  ");
           });
         },
         (String filePath) {
+          final newFileItem = FileItem(path: filePath, isFolder: false);
           setState(() {
-            files.add(FileItem(path: filePath, isFolder: false));
+            files.add(newFileItem);
+            print("22222추가하고");
           });
         },
       ),
