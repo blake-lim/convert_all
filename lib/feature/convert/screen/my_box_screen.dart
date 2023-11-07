@@ -141,7 +141,6 @@ class MyBoxScreenState extends State<MyBoxScreen> {
                     final index = files.indexOf(fileItem as FileItem);
                     if (index >= 0) {
                       setState(() {
-                        // 파일 이름 변경
                         final newPath = path.join(
                             path.dirname((fileItem as FileItem).path), newName);
                         files[index].path = newPath;
@@ -152,20 +151,23 @@ class MyBoxScreenState extends State<MyBoxScreen> {
               ),
       ),
       floatingActionButton: floatingButtons(
-        showAddFolderButton: true,
         context,
         currentFolderPath,
+        (String filePath) {
+          try {
+            final newFileItem = FileItem(path: filePath, isFolder: false);
+            setState(() {
+              files.add(newFileItem);
+              print("파일 추가: $filePath");
+            });
+          } catch (e) {
+            print("파일을 추가하는 중 오류 발생: $e");
+          }
+        },
         (String folderPath) {
           setState(() {
             files.insert(0, FileItem(path: folderPath, isFolder: true));
             print("1111추가하고$folderPath  ");
-          });
-        },
-        (String filePath) {
-          final newFileItem = FileItem(path: filePath, isFolder: false);
-          setState(() {
-            files.add(newFileItem);
-            print("22222추가하고");
           });
         },
       ),

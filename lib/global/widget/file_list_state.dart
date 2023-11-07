@@ -20,23 +20,18 @@ class FileList extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FileListState createState() => _FileListState(files: []);
+  _FileListState createState() => _FileListState();
 }
 
 class _FileListState extends State<FileList> {
   late FileManager fileManager; // 'fileManager'를 미리 선언
   List<FileItem> files = [];
 
-  _FileListState({required List<FileItem> files}) {
-    fileManager = FileManager();
-
-    this.files = files;
-  }
-
   @override
   void initState() {
     super.initState();
     fileManager = FileManager();
+    files = widget.files;
     initFileManager();
   }
 
@@ -124,7 +119,8 @@ class _FileListState extends State<FileList> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ImageViewer(imagePath: fileItem.path),
+                builder: (context) =>
+                    ImageViewer(imagePath: fileItem.path, name: fileName),
               ),
             );
           } else if (fileExtension == '.pdf') {
@@ -132,7 +128,8 @@ class _FileListState extends State<FileList> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PDFViewer(pdfPath: fileItem.path),
+                builder: (context) =>
+                    PDFViewer(pdfPath: fileItem.path, name: fileName),
               ),
             );
           }
@@ -143,7 +140,7 @@ class _FileListState extends State<FileList> {
               ? const Icon(Icons.folder_open, color: Colors.yellow)
               : const Icon(Icons.file_copy, color: Colors.blue),
           onTap: () {
-            openViewer(fileItem); // 파일이나 폴더를 열기 위한 함수 호출
+            openViewer(fileItem);
           },
           title: Text(
             fileName,

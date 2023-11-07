@@ -77,7 +77,6 @@ class _FolderScreenState extends State<FolderScreen> {
           top: 40.0,
           left: 10.0,
         ),
-        // child: files.isEmpty ? buildEmptyState() : _buildFileList(),
         child: files.isEmpty
             ? const EmptyState()
             : FileList(
