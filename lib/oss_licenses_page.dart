@@ -6,7 +6,6 @@ class OssLicensesPage extends StatelessWidget {
   const OssLicensesPage({super.key});
 
   static Future<List<String>> loadLicenses() async {
-    // merging non-dart based dependency list using LicenseRegistry.
     final ossKeys = ossLicenses.keys.toList();
     return ossKeys..sort();
   }

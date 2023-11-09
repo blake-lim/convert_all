@@ -24,7 +24,7 @@ class FileList extends StatefulWidget {
 }
 
 class _FileListState extends State<FileList> {
-  late FileManager fileManager; // 'fileManager'를 미리 선언
+  late FileManager fileManager;
   List<FileItem> files = [];
 
   @override
@@ -36,9 +36,8 @@ class _FileListState extends State<FileList> {
   }
 
   Future<void> initFileManager() async {
-    await fileManager.init(); // 파일 관리자 초기화
-    final List<FileItem> updatedFiles =
-        await fileManager.getFiles(); // 파일 목록 가져오기
+    await fileManager.init();
+    final List<FileItem> updatedFiles = await fileManager.getFiles();
     setState(() {
       files = updatedFiles;
     });
@@ -80,8 +79,6 @@ class _FileListState extends State<FileList> {
       },
     );
     if (newName != null) {
-      print("뉴네임 $newName");
-      // 파일인 경우 이름 변경
       fileManager.updateFileName(fileItem, newName!);
     }
   }
@@ -94,8 +91,6 @@ class _FileListState extends State<FileList> {
         FileItem fileItem = widget.files[index];
 
         String fileName = path.basename(fileItem.path);
-        print("파일 리스트에서 파일 네임 $fileName");
-        print("파일 리스트에서 확장자 ${fileItem.isFolder}");
 
         /* 파일 뷰어로 오픈 */
         void openViewer(FileItem fileItem) {

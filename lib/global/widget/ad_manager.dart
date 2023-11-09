@@ -36,7 +36,7 @@ class AdManager {
           print(error.message);
         },
       ),
-      request: AdRequest(),
+      request: const AdRequest(),
     );
     _bannerAd.load();
   }

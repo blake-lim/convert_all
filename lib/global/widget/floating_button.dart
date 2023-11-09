@@ -58,10 +58,11 @@ Widget floatingButtons(
           fontFamily: 'Yeongdeok Snow Crab',
         ),
         onTap: () async {
-          File? newFile = await fileManager.addFile(context);
-          print("플러팅 버튼에서 newFile:::::$newFile");
+          List<File>? newFile = await fileManager.addFile(context);
           if (newFile != null) {
-            onAddFile(newFile.path);
+            newFile.forEach((file) {
+              onAddFile(file.path);
+            });
           }
         },
       ),
