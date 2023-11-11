@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../controller/file_manager.dart';
 import 'convert_screen.dart';
+import './show_selected_files_screen.dart';
 
 class SelectFileScreen extends StatefulWidget {
   final String conversionType;
@@ -39,14 +40,17 @@ class _SelectFileScreenState extends State<SelectFileScreen> {
             ),
             GestureDetector(
               onTap: () async {
-                await Get.to(
-                    ConvertScreen(conversionType: widget.conversionType));
-                // final selectedFile = await fileManager.pickFile();
-                // if (selectedFile != null) {
-                //   // 파일 선택이 완료되면 선택한 파일 정보를 가지고 다음 스크린으로 이동
-                //   await Get.to(
-                //       ConvertScreen(conversionType: widget.conversionType));
-                // }
+                final selectedFile = await fileManager.pickFiles();
+                if (selectedFile != null) {
+                  // 파일 선택이 완료되면 선택한 파일 정보를 가지고 다음 스크린으로 이동
+                  // await Get.to(
+                  //     ConvertScreen(conversionType: widget.conversionType));
+                }
+                await Get.to(ShowSelectedFilesScreen(
+                    conversionType: widget.conversionType,
+                    selectedFile: selectedFile));
+                // await Get.to(
+                //     ConvertScreen(conversionType: widget.conversionType));
               },
               child: Align(
                 alignment: Alignment.center,
