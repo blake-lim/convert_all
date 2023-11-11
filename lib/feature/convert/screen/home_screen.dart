@@ -178,9 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             as String)),
               ),
             ),
-            const SizedBox(
-              height: 40,
-            ),
+            const Spacer(),
             SizedBox(
               width: adManager.bannerAd.size.width.toDouble(),
               height: adManager.bannerAd.size.height.toDouble(),
@@ -206,7 +204,7 @@ Widget _buildButton(
         borderRadius: BorderRadius.circular(10),
       ),
       elevation: 12,
-      primary: color,
+      backgroundColor: color,
     ),
     child: Center(
       child: Text(

@@ -102,19 +102,16 @@ class _FolderScreenState extends State<FolderScreen> {
                       });
                     } catch (e) {
                       print("Error deleting file/folder: $e");
-                      // Here, you can show an error message to the user.
                     }
                   }
                 },
                 /* TODO:추후 고도화로 2depth이상 이름 변경기능 제공 예정 */
                 onFileRenamed: (fileItem, newName) {
-                  // 수정 필요
                   if (fileItem is FileItem && (fileItem as FileItem).isFolder) {
-                    // 폴더인 경우에만 이름 변경을 허용
                     final index = files.indexOf(fileItem as FileItem);
                     if (index >= 0) {
                       setState(() {
-                        // 파일 이름 변경
+                        /* 파일 이름 변경 */
                         final newPath = path.join(
                             path.dirname((fileItem as FileItem).path), newName);
                         files[index].path = newPath;
@@ -127,7 +124,8 @@ class _FolderScreenState extends State<FolderScreen> {
       floatingActionButton: floatingButtons(
         context,
         showAddFolderButton: false,
-        folder.path, // 현재 디렉토리 경로를 전달
+        /* 현재 디렉토리 경로 전달 */
+        folder.path,
         (String folderPath) {
           setState(() {
             files.insert(0, FileItem(path: folderPath, isFolder: true));

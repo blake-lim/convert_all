@@ -11,13 +11,13 @@ Future<bool> showDeleteDialog(context) async {
             actions: <Widget>[
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(false); // '아니오'를 클릭하면 false를 반환
+                  Navigator.of(context).pop(false);
                 },
                 child: const Text('아니오'),
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(true); // '예'를 클릭하면 true를 반환
+                  Navigator.of(context).pop(true);
                 },
                 child: const Text('예'),
               ),
@@ -25,7 +25,7 @@ Future<bool> showDeleteDialog(context) async {
           );
         },
       )) ??
-      false; // 다이얼로그가 닫히면 false를 반환 (예를 들어, 백 버튼을 눌러 닫은 경우)
+      false;
 }
 
 Future<bool> showCupertinoDeleteDialog(BuildContext context) async {
@@ -39,14 +39,14 @@ Future<bool> showCupertinoDeleteDialog(BuildContext context) async {
               CupertinoDialogAction(
                 isDefaultAction: true,
                 onPressed: () {
-                  Navigator.of(context).pop(false); // '아니오'를 클릭하면 false를 반환
+                  Navigator.of(context).pop(false);
                 },
                 child: const Text('아니오'),
               ),
               CupertinoDialogAction(
                 isDestructiveAction: true,
                 onPressed: () {
-                  Navigator.of(context).pop(true); // '예'를 클릭하면 true를 반환
+                  Navigator.of(context).pop(true);
                 },
                 child: const Text('예'),
               ),

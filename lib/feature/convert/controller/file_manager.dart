@@ -7,17 +7,29 @@ import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 
 class FileManager {
-  Future<File?> pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    final FileManager fileManager = FileManager(); // FileManager 인스턴스 생성
+  Future<List<File>?> pickFiles({bool allowMultiple = true}) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: allowMultiple,
+    );
 
     if (result != null) {
-      File selectedFile = File(result.files.single.path!);
-      return selectedFile;
+      List<File> files = result.paths.map((path) => File(path!)).toList();
+      return files;
     } else {
       print('파일 선택이 취소되었습니다.');
       return null;
     }
+  }
+
+  Future<File?> selectSingleFile() async {
+    List<File>? selectedFiles = await pickFiles(allowMultiple: false);
+
+    // 파일이 정상적으로 선택되었는지 확인 후 처리
+    if (selectedFiles != null && selectedFiles.isNotEmpty) {
+      // selectedFiles 리스트에서 첫 번째 파일을 사용
+      return selectedFiles.first;
+    }
+    return null; // 파일이 선택되지 않았을 때의 처리
   }
 
   Future<void> init() async {
@@ -30,8 +42,6 @@ class FileManager {
     return [];
   }
 
-  // 파일 또는 폴더 이름을 변경하는 함수
-  // 파일 또는 폴더 이름 변경 함수
   void updateFileName(FileItem fileItem, String newName) {
     final String currentPath = fileItem.path;
     final String newPath = path.join(
@@ -86,7 +96,7 @@ class FileManager {
           ),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, null), // 취소 시 null 반환
+              onPressed: () => Navigator.pop(context, null),
               child: const Text('취소'),
             ),
             TextButton(
@@ -104,15 +114,19 @@ class FileManager {
   }
 
   /* 파일 생성 */
-  Future<File?> addFile(BuildContext context) async {
-    File? selectedFile = await pickFile();
-    if (selectedFile != null) {
-      print("selectedFile::::$selectedFile");
+  Future<List<File>?> addFile(BuildContext context) async {
+    List<File>? selectedFiles = await pickFiles();
+    if (selectedFiles != null && selectedFiles.isNotEmpty) {
       Directory appDocDir = await getApplicationDocumentsDirectory();
       String appDocPath = appDocDir.path;
-      final File localFile = await selectedFile
-          .copy('$appDocPath/${selectedFile.uri.pathSegments.last}');
-      return localFile;
+
+      List<File> copiedFiles = [];
+      for (File selectedFile in selectedFiles) {
+        File localFile = await selectedFile
+            .copy('$appDocPath/${selectedFile.uri.pathSegments.last}');
+        copiedFiles.add(localFile);
+      }
+      return copiedFiles;
     }
     return null;
   }

@@ -105,7 +105,6 @@ class MyBoxScreenState extends State<MyBoxScreen> {
           top: 40.0,
           left: 10.0,
         ),
-        // child: files.isEmpty ? buildEmptyState() : buildFileList(),
         child: files.isEmpty
             ? EmptyState()
             : FileList(
@@ -135,9 +134,7 @@ class MyBoxScreenState extends State<MyBoxScreen> {
                   }
                 },
                 onFileRenamed: (fileItem, newName) {
-                  // 수정 필요
                   if (fileItem is FileItem && (fileItem as FileItem).isFolder) {
-                    // 폴더인 경우에만 이름 변경을 허용
                     final index = files.indexOf(fileItem as FileItem);
                     if (index >= 0) {
                       setState(() {

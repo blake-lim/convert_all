@@ -90,6 +90,7 @@ class _ConvertScreenState extends State<ConvertScreen> {
                 ),
               ),
             ),
+
             SizedBox(
               width: adManager.bannerAd.size.width.toDouble(),
               height: adManager.bannerAd.size.height.toDouble(),
