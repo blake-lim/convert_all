@@ -68,18 +68,44 @@ class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
                     String fileName =
                         widget.selectedFile?[index].path.split('/').last ?? '';
                     return ListTile(
-                      leading:
-                          Icon(Icons.insert_drive_file, color: Colors.white),
+                      leading: const Icon(Icons.insert_drive_file,
+                          color: Colors.white),
                       title: Text(
                         fileName,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete, color: Colors.red),
+                        icon: const Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          setState(() {
-                            widget.selectedFile?.removeAt(index);
-                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text("파일 삭제"),
+                                content: const Text("이 파일을 삭제하시겠습니까?"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text("취소"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: const Text(
+                                      "삭제",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        widget.selectedFile?.removeAt(index);
+                                      });
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                       ),
                     );
