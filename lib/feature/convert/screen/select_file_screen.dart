@@ -42,15 +42,10 @@ class _SelectFileScreenState extends State<SelectFileScreen> {
               onTap: () async {
                 final selectedFile = await fileManager.pickFiles();
                 if (selectedFile != null) {
-                  // 파일 선택이 완료되면 선택한 파일 정보를 가지고 다음 스크린으로 이동
-                  // await Get.to(
-                  //     ConvertScreen(conversionType: widget.conversionType));
+                  await Get.to(ShowSelectedFilesScreen(
+                      conversionType: widget.conversionType,
+                      selectedFile: selectedFile));
                 }
-                await Get.to(ShowSelectedFilesScreen(
-                    conversionType: widget.conversionType,
-                    selectedFile: selectedFile));
-                // await Get.to(
-                //     ConvertScreen(conversionType: widget.conversionType));
               },
               child: Align(
                 alignment: Alignment.center,
