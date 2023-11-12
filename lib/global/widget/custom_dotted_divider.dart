@@ -24,13 +24,14 @@ class CustomDottedDivider extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
-// 사용하는 방법:
 class DottedDivider extends StatelessWidget {
+  const DottedDivider({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: CustomDottedDivider(),
-      size: Size(double.infinity, 1),
+      size: const Size(double.infinity, 1),
     );
   }
 }
