@@ -4,22 +4,37 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../controller/file_manager.dart';
 import 'convert_screen.dart';
 import './show_selected_files_screen.dart';
+import 'dart:io';
 
 class SelectFileScreen extends StatefulWidget {
   final String conversionType;
+  final List<File>? selectedFiles;
 
-  const SelectFileScreen({super.key, required this.conversionType});
+  const SelectFileScreen({
+    super.key,
+    required this.conversionType,
+    this.selectedFiles,
+  });
 
   @override
   _SelectFileScreenState createState() => _SelectFileScreenState();
 }
 
-//테스트
 class _SelectFileScreenState extends State<SelectFileScreen> {
   final FileManager fileManager = FileManager();
 
+  /* 변환 타입 변수로 추출 */
+  String getConversionTypeText() {
+    int toIndex = widget.conversionType.indexOf('to');
+    if (toIndex != -1) {
+      return widget.conversionType.substring(0, toIndex).trim();
+    }
+    return widget.conversionType;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("컨버전 타입 :::${widget.conversionType}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF30302E),
@@ -40,17 +55,36 @@ class _SelectFileScreenState extends State<SelectFileScreen> {
             ),
             GestureDetector(
               onTap: () async {
-                final selectedFile = await fileManager.pickFiles();
-                if (selectedFile != null) {
-                  // 파일 선택이 완료되면 선택한 파일 정보를 가지고 다음 스크린으로 이동
-                  // await Get.to(
-                  //     ConvertScreen(conversionType: widget.conversionType));
+                final List<File>? selectedFiles = await fileManager.pickFiles();
+                if (selectedFiles != null && selectedFiles.isNotEmpty) {
+                  String filePath = selectedFiles.first.path;
+
+                  if (!await fileManager.isValidFileType(
+                      filePath, widget.conversionType)) {
+                    // 파일 유형이 변환 유형과 맞지 않는 경우
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("잘못된 파일 유형"),
+                          content: Text(
+                              "선택한 파일 유형이 ${getConversionTypeText()}와(과) 일치하지 않습니다. 올바른 파일을 선택해주세요."),
+                          actions: [
+                            TextButton(
+                              child: Text("닫기"),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    // 파일 유형이 맞는 경우
+                    await Get.to(ShowSelectedFilesScreen(
+                        conversionType: widget.conversionType,
+                        selectedFile: selectedFiles));
+                  }
                 }
-                await Get.to(ShowSelectedFilesScreen(
-                    conversionType: widget.conversionType,
-                    selectedFile: selectedFile));
-                // await Get.to(
-                //     ConvertScreen(conversionType: widget.conversionType));
               },
               child: Align(
                 alignment: Alignment.center,

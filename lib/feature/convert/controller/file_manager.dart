@@ -21,6 +21,40 @@ class FileManager {
     }
   }
 
+  /*  파일 유형 확인 로직 */
+  Future<bool> isValidFileType(String filePath, String conversionType) async {
+    switch (conversionType) {
+      //Files to 로직
+      case 'IMGtoPDF':
+        return filePath.endsWith('.png') ||
+            filePath.endsWith('.jpg') ||
+            filePath.endsWith('.jpeg');
+      case 'EXCELtoPDF':
+        return filePath.endsWith('.xls') || filePath.endsWith('.xlsx');
+      case 'WORDtoPDF':
+        return filePath.endsWith('.doc') || filePath.endsWith('.docx');
+      case 'PPTtoPDF':
+        return filePath.endsWith('.ppt') || filePath.endsWith('.pptx');
+      //PPT to 로직
+      case 'PDFtoJPEG':
+        return filePath.endsWith('.pdf');
+      case 'PPTtoWORD':
+        return filePath.endsWith('.pdf');
+      case 'PPTtoEXCEL':
+        return filePath.endsWith('.pdf');
+      case 'PPTtoPPT':
+        return filePath.endsWith('.pdf');
+      case 'PPTtoBMP':
+        return filePath.endsWith('.pdf');
+      case 'PPTtoTIFF':
+        return filePath.endsWith('.pdf');
+      case 'PPTtoBMP':
+        return filePath.endsWith('.pdf');
+      default:
+        return true; // 기본적으로 true를 반환하거나, 필요에 따라 수정
+    }
+  }
+
   Future<File?> selectSingleFile() async {
     List<File>? selectedFiles = await pickFiles(allowMultiple: false);
 

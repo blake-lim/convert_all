@@ -60,12 +60,12 @@ final List<Map<String, Object>> convertFileToPdftMenuButtons = [
   },
   {
     'text': 'PDF to PPT',
-    'color': const Color(0xFFFFB169),
+    'color': const Color(0xFFE33629),
     'conversionType': 'PDFtoPPT'
   },
   {
     'text': 'PDF to BMP',
-    'color': const Color(0xFFE33629),
+    'color': const Color(0xFFF0F2F5),
     'conversionType': 'PDFtoBMP'
   },
   {

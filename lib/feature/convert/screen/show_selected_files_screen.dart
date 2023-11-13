@@ -67,9 +67,10 @@ class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
                   itemBuilder: (context, index) {
                     String fileName =
                         widget.selectedFile?[index].path.split('/').last ?? '';
+                    String filePath = widget.selectedFile?[index].path ?? '';
+                    Color iconColor = getFileIconColor(filePath);
                     return ListTile(
-                      leading: const Icon(Icons.insert_drive_file,
-                          color: Colors.white),
+                      leading: Icon(Icons.insert_drive_file, color: iconColor),
                       title: Text(
                         fileName,
                         style: const TextStyle(color: Colors.white),
@@ -146,5 +147,25 @@ class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
         ),
       ),
     );
+  }
+}
+
+Color getFileIconColor(String filePath) {
+  String extension = filePath.split('.').last.toLowerCase();
+  switch (extension) {
+    case 'pdf':
+      return Colors.red;
+    case 'xls':
+    case 'xlsx':
+      return Colors.green;
+    case 'png':
+    case 'jpg':
+    case 'jpeg':
+      return Colors.yellow;
+    case 'doc':
+    case 'docx':
+      return Colors.blue;
+    default:
+      return Colors.purple; // 기본 색상
   }
 }

@@ -5,6 +5,7 @@ import '../../global/menu_data.dart';
 import '../../feature/convert/controller/file_manager.dart';
 import '../widget/pdf_viewer.dart';
 import '../widget/image_viewer.dart';
+import '../widget/office_viewer.dart';
 
 class FileList extends StatefulWidget {
   final List<FileItem> files; // 'files' 변수를 생성자 매개변수로 추가
@@ -125,6 +126,20 @@ class _FileListState extends State<FileList> {
               MaterialPageRoute(
                 builder: (context) =>
                     PDFViewer(pdfPath: fileItem.path, name: fileName),
+              ),
+            );
+          } else if (fileExtension == '.xls' ||
+              fileExtension == '.xlsx' ||
+              fileExtension == '.doc' ||
+              fileExtension == '.docx' ||
+              fileExtension == '.ppt' ||
+              fileExtension == '.pptx') {
+            /* PDF 뷰어 실행 */
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    OfficeViewer(filePath: fileItem.path, name: fileName),
               ),
             );
           }
