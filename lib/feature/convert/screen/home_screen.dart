@@ -195,7 +195,11 @@ Widget _buildButton(
     String text, Color color, BuildContext context, String conversionType) {
   return ElevatedButton(
     onPressed: () {
-      Get.to(() => SelectFileScreen(conversionType: conversionType),
+      Get.to(
+          () => SelectFileScreen(
+                conversionType: conversionType,
+                selectedFiles: [],
+              ),
           transition: Transition.noTransition);
     },
     style: ElevatedButton.styleFrom(
