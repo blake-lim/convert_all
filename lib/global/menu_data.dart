@@ -18,59 +18,74 @@ class FileItem {
 final List<Map<String, Object>> convertPdfToFiletMenuButtons = [
   {
     'text': 'IMG to PDF',
-    'color': const Color(0xFF6EF685),
+    'color': const Color(0xFFff595e),
     'conversionType': 'IMGtoPDF',
   },
-  {
-    'text': 'EXCEL to PDF',
-    'color': const Color(0xFFE6CCE7),
-    'conversionType': 'EXCELtoPDF'
-  },
-  {
-    'text': 'PPT to PDF',
-    'color': const Color(0xFFF7606F),
-    'conversionType': 'PPTtoPDF'
-  },
-  {
-    'text': 'WORD to PDF',
-    'color': const Color(0xFFFEE500),
-    'conversionType': 'WORDtoPDF'
-  },
+  // {
+  //   'text': 'EXCEL to PDF',
+  //   'color': const Color(0xFFE6CCE7),
+  //   'conversionType': 'EXCELtoPDF'
+  // },
+  // {
+  //   'text': 'PPT to PDF',
+  //   'color': const Color(0xFFF7606F),
+  //   'conversionType': 'PPTtoPDF'
+  // },
+  // {
+  //   'text': 'WORD to PDF',
+  //   'color': const Color(0xFFFEE500),
+  //   'conversionType': 'WORDtoPDF'
+  // },
 ];
 final List<Map<String, Object>> convertFileToPdftMenuButtons = [
   {
     'text': 'PDF to JPEG',
-    'color': const Color(0xFFF5EBE0),
+    'color': const Color(0xFFffca3a),
     'conversionType': 'PDFtoJPEG'
   },
   {
-    'text': 'PDF to PNG',
-    'color': const Color(0xFFE08B8B),
+    'text': 'PDF to JPG',
+    'color': const Color(0xFF8ac926),
     'conversionType': 'PDFtoPNG'
   },
   {
-    'text': 'PDF to WORD',
-    'color': const Color(0xFF7F90BF),
-    'conversionType': 'PDFtoWORD'
+    'text': 'PDF to PNG',
+    'color': const Color(0xFF1982c4),
+    'conversionType': 'PDFtoPNG'
   },
   {
-    'text': 'PDF to EXCEL',
-    'color': const Color(0xFF097045),
-    'conversionType': 'PDFtoEXCEL'
-  },
-  {
-    'text': 'PDF to PPT',
-    'color': const Color(0xFFE33629),
-    'conversionType': 'PDFtoPPT'
+    'text': 'PDF to GIF',
+    'color': const Color(0xFF6a4c93),
+    'conversionType': 'PDFtoPNG'
   },
   {
     'text': 'PDF to BMP',
-    'color': const Color(0xFFF0F2F5),
-    'conversionType': 'PDFtoBMP'
+    'color': const Color(0xFF87c38f),
+    'conversionType': 'PDFtoPNG'
   },
-  {
-    'text': 'PDF to TIFF',
-    'color': const Color(0xFFD9D9D9),
-    'conversionType': 'PDFtoTIFF'
-  },
+  // {
+  //   'text': 'PDF to WORD',
+  //   'color': const Color(0xFF7F90BF),
+  //   'conversionType': 'PDFtoWORD'
+  // },
+  // {
+  //   'text': 'PDF to EXCEL',
+  //   'color': const Color(0xFF097045),
+  //   'conversionType': 'PDFtoEXCEL'
+  // },
+  // {
+  //   'text': 'PDF to PPT',
+  //   'color': const Color(0xFFE33629),
+  //   'conversionType': 'PDFtoPPT'
+  // },
+  // {
+  //   'text': 'PDF to BMP',
+  //   'color': const Color(0xFFF0F2F5),
+  //   'conversionType': 'PDFtoBMP'
+  // },
+  // {
+  //   'text': 'PDF to TIFF',
+  //   'color': const Color(0xFFD9D9D9),
+  //   'conversionType': 'PDFtoTIFF'
+  // },
 ];

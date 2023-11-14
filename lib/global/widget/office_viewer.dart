@@ -39,7 +39,7 @@ class OfficeViewer extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () => _openFile(filePath),
-          child: Text("Open File"),
+          child: const Text("파일 열기"),
         ),
       ),
     );
