@@ -277,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: Colors.amber,
+        backgroundColor: const Color(0xFF30302E),
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -306,12 +306,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 '보관함',
                 style: TextStyle(
                     fontSize: 20,
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'Yeongdeok Snow Crab',
                     fontWeight: FontWeight.w500),
               ),
               onTap: () {
-                Get.to(MyBoxScreen());
+                Get.to(const MyBoxScreen());
               },
             ),
             ListTile(
@@ -324,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 '설정',
                 style: TextStyle(
                     fontSize: 20,
-                    color: Colors.black,
+                    color: Colors.white,
                     fontFamily: 'Yeongdeok Snow Crab',
                     fontWeight: FontWeight.w500),
               ),
@@ -376,6 +376,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             as String)),
               ),
             ),
+            const SizedBox(height: 40),
             const Align(
               alignment: Alignment.topLeft,
               child: Text(

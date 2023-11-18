@@ -18,24 +18,24 @@ class FileItem {
 final List<Map<String, Object>> convertPdfToFiletMenuButtons = [
   {
     'text': 'IMG to PDF',
-    'color': const Color(0xFFff595e),
+    'color': const Color(0xFFef476f),
     'conversionType': 'IMGtoPDF',
   },
-  // {
-  //   'text': 'EXCEL to PDF',
-  //   'color': const Color(0xFFE6CCE7),
-  //   'conversionType': 'EXCELtoPDF'
-  // },
-  // {
-  //   'text': 'PPT to PDF',
-  //   'color': const Color(0xFFF7606F),
-  //   'conversionType': 'PPTtoPDF'
-  // },
-  // {
-  //   'text': 'WORD to PDF',
-  //   'color': const Color(0xFFFEE500),
-  //   'conversionType': 'WORDtoPDF'
-  // },
+  {
+    'text': 'EXCEL to PDF',
+    'color': const Color(0xFF06d6a0),
+    'conversionType': 'EXCELtoPDF'
+  },
+  {
+    'text': 'PPT to PDF',
+    'color': const Color(0xFFf05742),
+    'conversionType': 'PPTtoPDF'
+  },
+  {
+    'text': 'WORD to PDF',
+    'color': const Color(0xFF1b9aaa),
+    'conversionType': 'WORDtoPDF'
+  },
 ];
 final List<Map<String, Object>> convertFileToPdftMenuButtons = [
   {
