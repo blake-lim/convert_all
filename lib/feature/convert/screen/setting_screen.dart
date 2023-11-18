@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../controller/file_manager.dart';
 import './about_project.dart';
 import '../../../oss_licenses_page.dart';
 
@@ -42,11 +40,11 @@ class SettingScreen extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            SettingTile(
-              icon: Icons.layers_clear,
-              title: '광고제거(유료)',
-              onTap: () {},
-            ),
+            // SettingTile(
+            //   icon: Icons.layers_clear,
+            //   title: '광고제거(유료)',
+            //   onTap: () {},
+            // ),
             SettingTile(
               icon: Icons.help,
               title: '다바꿔는 어떤 앱인가요?',
@@ -61,11 +59,11 @@ class SettingScreen extends StatelessWidget {
                 Get.to(const OssLicensesPage());
               },
             ),
-            SettingTile(
-              icon: Icons.cloud_upload,
-              title: '자주 묻는 질문',
-              onTap: () {},
-            ),
+            // SettingTile(
+            //   icon: Icons.cloud_upload,
+            //   title: '자주 묻는 질문',
+            //   onTap: () {},
+            // ),
           ],
         ),
       ),
