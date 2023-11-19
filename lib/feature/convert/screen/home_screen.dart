@@ -347,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
               repeat: true,
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             const Align(
               alignment: Alignment.topLeft,
@@ -436,7 +436,7 @@ Widget _buildButton(
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(2),
       ),
       elevation: 12,
       backgroundColor: color,
