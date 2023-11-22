@@ -3,8 +3,24 @@ import 'package:get/get.dart';
 import './about_project.dart';
 import '../../../oss_licenses_page.dart';
 
-class SettingScreen extends StatelessWidget {
+import '../../../global/widget/ad_manager.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
+
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  final AdManager adManager = AdManager();
+
+  @override
+  void initState() {
+    super.initState();
+    adManager.initialize();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +33,17 @@ class SettingScreen extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
+        ),
+      ),
+      bottomSheet: SafeArea(
+        child: Align(
+          heightFactor: 0,
+          alignment: Alignment.bottomCenter,
+          child: SizedBox(
+            width: adManager.bannerAd.size.width.toDouble(),
+            height: adManager.bannerAd.size.height.toDouble(),
+            child: AdWidget(ad: adManager.bannerAd),
+          ),
         ),
       ),
       body: Container(
