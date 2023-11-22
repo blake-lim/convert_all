@@ -24,48 +24,48 @@ Widget floatingButtons(
     overlayOpacity: 0.5,
     children: [
       if (showAddFolderButton)
+        // SpeedDialChild(
+        //   child: const Icon(Icons.folder, color: Colors.white),
+        //   label: "폴더 추가하기",
+        //   labelStyle: const TextStyle(
+        //     fontWeight: FontWeight.w400,
+        //     color: Colors.white,
+        //     fontSize: 13.0,
+        //     fontFamily: 'Yeongdeok Snow Crab',
+        //   ),
+        //   backgroundColor: Colors.black,
+        //   labelBackgroundColor: Colors.black,
+        //   onTap: () async {
+        //     Directory? newFolder =
+        //         await fileManager.addFolder(context, currentFolderPath);
+        //     if (newFolder != null) {
+        //       onAddFolder(newFolder.path);
+        //     }
+        //   },
+        // ),
         SpeedDialChild(
-          child: const Icon(Icons.folder, color: Colors.white),
-          label: "폴더 추가하기",
+          child: const Icon(
+            Icons.file_copy,
+            color: Colors.black,
+          ),
+          label: "파일 추가하기",
+          backgroundColor: Colors.white,
+          labelBackgroundColor: Colors.white,
           labelStyle: const TextStyle(
             fontWeight: FontWeight.w400,
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 13.0,
             fontFamily: 'Yeongdeok Snow Crab',
           ),
-          backgroundColor: Colors.black,
-          labelBackgroundColor: Colors.black,
           onTap: () async {
-            Directory? newFolder =
-                await fileManager.addFolder(context, currentFolderPath);
-            if (newFolder != null) {
-              onAddFolder(newFolder.path);
+            List<File>? newFile = await fileManager.addFile(context);
+            if (newFile != null) {
+              newFile.forEach((file) {
+                onAddFile(file.path);
+              });
             }
           },
         ),
-      SpeedDialChild(
-        child: const Icon(
-          Icons.file_copy,
-          color: Colors.black,
-        ),
-        label: "파일 추가하기",
-        backgroundColor: Colors.white,
-        labelBackgroundColor: Colors.white,
-        labelStyle: const TextStyle(
-          fontWeight: FontWeight.w400,
-          color: Colors.black,
-          fontSize: 13.0,
-          fontFamily: 'Yeongdeok Snow Crab',
-        ),
-        onTap: () async {
-          List<File>? newFile = await fileManager.addFile(context);
-          if (newFile != null) {
-            newFile.forEach((file) {
-              onAddFile(file.path);
-            });
-          }
-        },
-      ),
     ],
   );
 }
