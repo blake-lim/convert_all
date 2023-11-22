@@ -8,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import '../../../global/widget/file_list_state.dart';
 import '../../../global/widget/empty_file_state.dart';
 import 'package:path/path.dart' as path;
+import '../../../global/widget/ad_manager.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class MyBoxScreen extends StatefulWidget {
   const MyBoxScreen({super.key});
@@ -19,6 +21,7 @@ class MyBoxScreen extends StatefulWidget {
 class MyBoxScreenState extends State<MyBoxScreen> {
   List<FileItem> files = [];
   String currentFolderPath = "여기에 초기 폴더 경로를 설정하세요";
+  final AdManager adManager = AdManager();
 
   final FocusNode focusNode = FocusNode();
 
@@ -45,6 +48,7 @@ class MyBoxScreenState extends State<MyBoxScreen> {
   @override
   void initState() {
     super.initState();
+    adManager.initialize();
 
     _initFolder().then((_) {
       _loadFiles();
@@ -100,6 +104,17 @@ class MyBoxScreenState extends State<MyBoxScreen> {
           },
         ),
       ),
+      bottomSheet: SafeArea(
+        child: Align(
+          heightFactor: 0,
+          alignment: Alignment.bottomCenter,
+          child: SizedBox(
+            width: adManager.bannerAd.size.width.toDouble(),
+            height: adManager.bannerAd.size.height.toDouble(),
+            child: AdWidget(ad: adManager.bannerAd),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.only(
           top: 40.0,
@@ -147,25 +162,28 @@ class MyBoxScreenState extends State<MyBoxScreen> {
                 },
               ),
       ),
-      floatingActionButton: floatingButtons(
-        context,
-        currentFolderPath,
-        (String filePath) {
-          try {
-            final newFileItem = FileItem(path: filePath, isFolder: false);
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 50.0),
+        child: floatingButtons(
+          context,
+          currentFolderPath,
+          (String filePath) {
+            try {
+              final newFileItem = FileItem(path: filePath, isFolder: false);
+              setState(() {
+                files.add(newFileItem);
+                print("파일 추가: $filePath");
+              });
+            } catch (e) {
+              print("파일을 추가하는 중 오류 발생: $e");
+            }
+          },
+          (String folderPath) {
             setState(() {
-              files.add(newFileItem);
-              print("파일 추가: $filePath");
+              files.insert(0, FileItem(path: folderPath, isFolder: true));
             });
-          } catch (e) {
-            print("파일을 추가하는 중 오류 발생: $e");
-          }
-        },
-        (String folderPath) {
-          setState(() {
-            files.insert(0, FileItem(path: folderPath, isFolder: true));
-          });
-        },
+          },
+        ),
       ),
     );
   }
