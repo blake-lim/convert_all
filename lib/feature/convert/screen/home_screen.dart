@@ -300,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(
                 Icons.move_to_inbox_outlined,
                 size: 28,
-                color: Colors.green,
+                color: Colors.amber,
               ),
               title: const Text(
                 '보관함',
@@ -318,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(
                 Icons.settings,
                 size: 28,
-                color: Colors.green,
+                color: Colors.amber,
               ),
               title: const Text(
                 '설정',
@@ -436,7 +436,7 @@ Widget _buildButton(
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(20),
       ),
       elevation: 12,
       backgroundColor: color,

@@ -1,5 +1,19 @@
 import 'package:flutter/material.dart';
 
+// class FileItem {
+//   String _path; // private 변수로 변경
+//   final bool isFolder;
+//   final String? svgPath;
+
+//   FileItem({required String path, required this.isFolder, this.svgPath})
+//       : _path = path; // 생성자에서 _path를 초기화
+
+//   String get path => _path; // path의 getter
+
+//   set path(String newPath) {
+//     _path = newPath; // path의 setter
+//   }
+// }
 class FileItem {
   String _path; // private 변수로 변경
   final bool isFolder;
