@@ -66,12 +66,12 @@ class _SelectFileScreenState extends State<SelectFileScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("잘못된 파일 유형"),
+                          title: const Text("잘못된 파일 유형"),
                           content: Text(
                               "선택한 파일 유형이 ${getConversionTypeText()}와(과) 일치하지 않습니다. 올바른 파일을 선택해주세요."),
                           actions: [
                             TextButton(
-                              child: Text("닫기"),
+                              child: const Text("닫기"),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                           ],
