@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:convert_project/global/splash_screen.dart';
 import 'package:get/get.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  await dotenv.load(fileName: ".env"); // .env 파일 로드
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
