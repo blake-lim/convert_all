@@ -115,8 +115,16 @@ class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
                                           setState(() {
                                             widget.selectedFile
                                                 ?.removeAt(index);
+                                            // 파일 리스트의 크기가 0이 되었는지 확인
+                                            if (widget.selectedFile?.isEmpty ??
+                                                true) {
+                                              // 현재 화면을 스택에서 제거하고 이전 화면으로 돌아감
+                                              Navigator.of(context)
+                                                  .pop(); // 현재 AlertDialog 닫기
+                                              Navigator.of(context)
+                                                  .pop(); // 현재 화면 닫기
+                                            }
                                           });
-                                          Navigator.of(context).pop();
                                         },
                                       ),
                                     ],
@@ -159,7 +167,7 @@ class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
                             } else if (widget.conversionType == "PDFtoDocx") {
                               // PDF를 Docx로 변환하는 API 호출
                               await controller.convertPdfToDocx(selectedFiles);
-                            } else if (widget.conversionType == "FiletoPDF") {
+                            } else if (widget.conversionType == "IMGtoPDF") {
                               // 파일을 PDF로 변환하는 API 호출
                               await controller.convertFileToPdf(selectedFiles);
                             } else {

@@ -22,7 +22,7 @@ dependencies:
   flutter_pdfview: ^1.2.7
   open_file: ^3.2.1
   flutter_dotenv: 
-
+  permission_handler: 
 dev_dependencies:
   flutter_test:
     sdk: flutter
