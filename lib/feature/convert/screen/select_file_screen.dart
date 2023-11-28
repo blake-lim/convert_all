@@ -35,6 +35,8 @@ class _SelectFileScreenState extends State<SelectFileScreen> {
   @override
   Widget build(BuildContext context) {
     print("컨버전 타입 :::${widget.conversionType}");
+    print("getConversionTypeText 타입 :::${getConversionTypeText()}");
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF30302E),

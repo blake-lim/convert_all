@@ -1,3 +1,4 @@
+import 'package:convert_project/feature/convert/controller/convert_controller.dart';
 import 'package:convert_project/global/global_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,9 +20,13 @@ class ShowSelectedFilesScreen extends StatefulWidget {
 //테스트
 class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
   final FileManager fileManager = FileManager();
-
+  final ConvertController controller = Get.find();
   @override
   Widget build(BuildContext context) {
+    print("conversionType:::${widget.conversionType}");
+    print("selectedFile:::${widget.selectedFile}");
+    List<File>? selectedFiles = widget.selectedFile;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF30302E),
@@ -119,15 +124,36 @@ class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xFF855FCE)),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0xFF855FCE)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (selectedFiles != null) {
+                        if (widget.conversionType.startsWith("PDFto")) {
+                          // "PDFto" 부분을 제거하고 확장자만 추출
+                          String extension =
+                              widget.conversionType.substring(5).toLowerCase();
+
+                          // 서버로 넘겨줄 확장자를 인자로 전달
+                          await controller.convertPdfToImg(
+                              selectedFiles, extension);
+                        } else if (widget.conversionType == "PDFtoDocx") {
+                          // PDF를 Docx로 변환하는 API 호출
+                          await controller.convertPdfToDocx(selectedFiles);
+                        } else if (widget.conversionType == "FiletoPDF") {
+                          // 파일을 PDF로 변환하는 API 호출
+                          await controller.convertFileToPdf(selectedFiles);
+                        } else {
+                          // 지원하지 않는 변환 유형 처리
+                          print("지원하지 않는 변환 유형입니다.");
+                        }
+                      }
+                    },
                     child: const Text(
                       '확인',
                       style: TextStyle(

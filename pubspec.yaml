@@ -35,6 +35,8 @@ flutter:
   assets:
     - assets/svgs/
     - assets/lotties/
+    - .env
+
   fonts:
     - family: Yeongdeok Snow Crab
       fonts:

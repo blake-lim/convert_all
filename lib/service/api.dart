@@ -4,7 +4,7 @@ class API {
   late final String baseUrl;
 
   API() {
-    baseUrl = dotenv.env['BASE_API_KEY'] ?? '기본 URL';
+    baseUrl = dotenv.env['BASE_API_KEY'] ?? '';
   }
   // pdf를 image로 변환
   String get pdfToImg => '$baseUrl/convert/pdf-to-image';
