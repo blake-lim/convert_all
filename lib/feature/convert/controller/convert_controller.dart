@@ -4,11 +4,20 @@ import '../../../service/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert'; // JSON 처리를 위해 필요
 import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:typed_data';
 
 class ConvertController extends GetxController {
   API api = API();
   var isLoading = false.obs;
   var isSuccess = false.obs;
+
+  var fileNames = <String>[].obs;
+
+  void updateFileNames(List<String> newFileNames) {
+    fileNames.value = newFileNames;
+  }
 
   /* pdf를 image로 변환 */
   Future<bool> convertPdfToImg(List<File> files, String imgType) async {
@@ -22,13 +31,11 @@ class ConvertController extends GetxController {
 
       for (var file in files) {
         var multipartFile = await http.MultipartFile.fromPath(
-            'files', // 파일 필드
-            file.path,
+            'files', file.path,
             filename: file.path.split('/').last);
         request.files.add(multipartFile);
       }
 
-      // 추가 필드 'extens' 설정
       request.fields['extens'] = imgType;
 
       var response = await request.send();
@@ -68,7 +75,6 @@ class ConvertController extends GetxController {
       }
 
       var response = await request.send();
-      // 여기에 응답 처리 로직을 추가하세요
     } catch (e) {
       print('Error Msg >>>> : $e');
     } finally {
@@ -78,29 +84,15 @@ class ConvertController extends GetxController {
 
   /* file을 pdf로 변환 */
   Future<bool> convertFileToPdf(List<File> files) async {
+    print("come on!!!!!!!!");
+
     isLoading.value = true;
     try {
       var request = http.MultipartRequest('POST', Uri.parse(api.fileToPdf));
 
-      // var request = http.MultipartRequest('POST', Uri.parse(api.pdfToImg));
-
-      //     for (var file in files) {
-      //       var multipartFile = await http.MultipartFile.fromPath(
-      //           'files', // 파일 필드
-      //           file.path,
-      //           filename: file.path.split('/').last);
-      //       request.files.add(multipartFile);
-      //     }
-
-      //     // 추가 필드 'extens' 설정
-      //     request.fields['extens'] = imgType;
-
-      //     var response = await request.send();
-
       for (var file in files) {
         var multipartFile = await http.MultipartFile.fromPath(
-            'files', // 서버가 요구하는 필드 이름 'files'
-            file.path,
+            'files', file.path,
             filename: file.path.split('/').last);
         request.files.add(multipartFile);
       }
@@ -108,42 +100,56 @@ class ConvertController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        print("🔥🔥🔥🔥🔥🔥성공성공🔥🔥🔥🔥🔥");
         String responseData = await response.stream.bytesToString();
-        // JSON 데이터를 Dart 객체로 파싱
         var json = jsonDecode(responseData);
-
-        // 파일 이름 추출
         List<String> fileNames = List<String>.from(json['file_names']);
+        updateFileNames(fileNames);
+
+        // 각 파일에 대해 다운로드 및 저장 수행
+        for (var fileName in fileNames) {
+          await downloadAndSaveFile(fileName);
+        }
         print("fileNames::::$fileNames");
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      print('Error Msg >>>> : $e');
+      print('이미지 Error Msg >>>> : $e');
       return false;
     } finally {
       isLoading.value = false;
     }
   }
 
-/* 변환된 파일 다운로드 */
-  Future<void> downloadFile(String fileName) async {
-    isLoading.value = true;
+/* 파일 다운로드 */
+  Future<Uint8List?> downloadFile(List<String> fileNames) async {
     try {
       var response = await http.post(
         Uri.parse(api.downloadFile),
-        body: jsonEncode(
-          {"filenames": fileName},
-        ),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"filenames": fileNames}),
       );
-      /* 인증 성공 */
-      if (response.statusCode == 200) {}
+
+      if (response.statusCode == 200) {
+        return response.bodyBytes;
+      } else {
+        print("Server error: ${response.statusCode}");
+        return null;
+      }
     } catch (e) {
-      print('이메일 인증코드 발생 Error Msg >>>> : $e');
-    } finally {
-      isLoading.value = false;
+      print("Download error: $e");
+      return null;
+    }
+  }
+
+/* 변환된 파일 다운로드 */
+  Future<void> downloadAndSaveFile(String fileName) async {
+    var fileData = await downloadFile([fileName]);
+    if (fileData != null) {
+      await saveFileToExternalStorage(fileData, fileName);
+    } else {
+      print("File download failed");
     }
   }
 
@@ -164,6 +170,29 @@ class ConvertController extends GetxController {
       print('이메일 인증 Error Msg >>>> : $e');
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  /* 유저의 외부 저장소에 저장하는 로직 */
+  Future<void> saveFileToExternalStorage(
+      Uint8List data, String fileName) async {
+    // 외부 저장소 접근 권한 요청
+    print('여기 들어오니111');
+
+    var status = await Permission.storage.request();
+    if (status.isGranted) {
+      print('여기 들어오니2222');
+
+      // 외부 저장소의 경로를 얻음
+      final directory = await getExternalStorageDirectory();
+      final filePath = '${directory!.path}/$fileName';
+      final file = File(filePath);
+
+      // 파일을 외부 저장소에 쓰기
+      await file.writeAsBytes(data);
+      print('File saved to $filePath');
+    } else {
+      print('Storage permission denied');
     }
   }
 }
