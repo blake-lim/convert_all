@@ -34,12 +34,18 @@ class ConvertController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
+        isLoading.value = false;
+
         print("성공성공!!!");
         return true;
       } else {
+        isLoading.value = false;
+
         return false;
       }
     } catch (e) {
+      isLoading.value = false;
+
       print('Error Msg >>>> : $e');
       return false;
     } finally {
