@@ -181,7 +181,7 @@ class ConvertController extends GetxController {
 
     var status = await Permission.storage.request();
     if (status.isGranted) {
-      print('여기 들어오니2222');
+      print('status.isGranted::${status.isGranted}');
 
       // 외부 저장소의 경로를 얻음
       final directory = await getExternalStorageDirectory();
