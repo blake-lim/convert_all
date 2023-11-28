@@ -1,10 +1,14 @@
+import 'package:convert_project/feature/convert/controller/convert_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:convert_project/global/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'service/api.dart';
+
 void main() async {
   await dotenv.load(fileName: ".env"); // .env 파일 로드
+  Get.put(ConvertController());
   runApp(const MyApp());
 }
 
