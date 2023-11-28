@@ -167,7 +167,7 @@ class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
                             } else if (widget.conversionType == "PDFtoDocx") {
                               // PDF를 Docx로 변환하는 API 호출
                               await controller.convertPdfToDocx(selectedFiles);
-                            } else if (widget.conversionType == "FiletoPDF") {
+                            } else if (widget.conversionType == "IMGtoPDF") {
                               // 파일을 PDF로 변환하는 API 호출
                               await controller.convertFileToPdf(selectedFiles);
                             } else {

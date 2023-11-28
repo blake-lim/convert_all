@@ -36,7 +36,7 @@ class ConvertController extends GetxController {
       if (response.statusCode == 200) {
         isLoading.value = false;
 
-        print("성공성공!!!");
+        print("🔥🔥🔥🔥🔥🔥성공성공🔥🔥🔥🔥🔥");
         return true;
       } else {
         isLoading.value = false;
@@ -80,8 +80,22 @@ class ConvertController extends GetxController {
   Future<bool> convertFileToPdf(List<File> files) async {
     isLoading.value = true;
     try {
-      var request = http.MultipartRequest(
-          'POST', Uri.parse('http://127.0.0.1:8000/convert/file-to-pdf'));
+      var request = http.MultipartRequest('POST', Uri.parse(api.fileToPdf));
+
+      // var request = http.MultipartRequest('POST', Uri.parse(api.pdfToImg));
+
+      //     for (var file in files) {
+      //       var multipartFile = await http.MultipartFile.fromPath(
+      //           'files', // 파일 필드
+      //           file.path,
+      //           filename: file.path.split('/').last);
+      //       request.files.add(multipartFile);
+      //     }
+
+      //     // 추가 필드 'extens' 설정
+      //     request.fields['extens'] = imgType;
+
+      //     var response = await request.send();
 
       for (var file in files) {
         var multipartFile = await http.MultipartFile.fromPath(
@@ -94,6 +108,14 @@ class ConvertController extends GetxController {
       var response = await request.send();
 
       if (response.statusCode == 200) {
+        print("🔥🔥🔥🔥🔥🔥성공성공🔥🔥🔥🔥🔥");
+        String responseData = await response.stream.bytesToString();
+        // JSON 데이터를 Dart 객체로 파싱
+        var json = jsonDecode(responseData);
+
+        // 파일 이름 추출
+        List<String> fileNames = List<String>.from(json['file_names']);
+        print("fileNames::::$fileNames");
         return true;
       } else {
         return false;
