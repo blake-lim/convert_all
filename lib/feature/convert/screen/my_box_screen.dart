@@ -11,6 +11,8 @@ import 'package:path/path.dart' as path;
 import '../../../global/widget/ad_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../controller/convert_controller.dart';
+
 class MyBoxScreen extends StatefulWidget {
   const MyBoxScreen({super.key});
 
@@ -19,6 +21,8 @@ class MyBoxScreen extends StatefulWidget {
 }
 
 class MyBoxScreenState extends State<MyBoxScreen> {
+  final ConvertController convertController = Get.find<ConvertController>();
+
   List<FileItem> files = [];
   String currentFolderPath = "여기에 초기 폴더 경로를 설정하세요";
   final AdManager adManager = AdManager();
@@ -120,10 +124,14 @@ class MyBoxScreenState extends State<MyBoxScreen> {
           top: 40.0,
           left: 10.0,
         ),
-        child: files.isEmpty
+        child: convertController.files.isEmpty
             ? EmptyState()
             : FileList(
                 files: files,
+                onFileAdded: (filePath, isFolder) {
+                  // FileList의 상태를 업데이트하는 로직
+                  // 예: fileListState.addFileItem(filePath, isFolder);
+                },
                 onFileDeleted: (index) async {
                   bool shouldDelete = false;
                   if (Platform.isIOS) {

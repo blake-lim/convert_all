@@ -81,6 +81,7 @@ class _FolderScreenState extends State<FolderScreen> {
             ? const EmptyState()
             : FileList(
                 files: files,
+                onFileAdded: (filePath, isFolder) {},
                 onFileDeleted: (index) async {
                   bool shouldDelete = false;
                   if (Platform.isIOS) {
