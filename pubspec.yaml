@@ -23,12 +23,15 @@ dependencies:
   open_file: ^3.2.1
   flutter_dotenv: 
   permission_handler: 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_share:
   flutter_oss_licenses: ^1.1.1
   flutter_lints: ^2.0.0
- 
+  
+
 
 flutter:
   uses-material-design: true

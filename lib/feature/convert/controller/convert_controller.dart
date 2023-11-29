@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'dart:async';
+import '../../../global/menu_data.dart';
 import '../../../service/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert'; // JSON 처리를 위해 필요
@@ -7,9 +8,12 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:typed_data';
+import 'package:file_picker/file_picker.dart';
 
 class ConvertController extends GetxController {
   API api = API();
+  var files = <FileItem>[].obs;
+
   var isLoading = false.obs;
   var isSuccess = false.obs;
 
@@ -147,7 +151,10 @@ class ConvertController extends GetxController {
   Future<void> downloadAndSaveFile(String fileName) async {
     var fileData = await downloadFile([fileName]);
     if (fileData != null) {
-      await saveFileToExternalStorage(fileData, fileName);
+      // await saveFileToUserSelectedLocation(fileData, fileName);
+      var newFileItem = FileItem(path: fileName, isFolder: false);
+      files.add(newFileItem); // 파일 목록에 새 항목 추가
+      print("File downloaded and added: $fileName");
     } else {
       print("File download failed");
     }
@@ -196,3 +203,23 @@ class ConvertController extends GetxController {
     }
   }
 }
+
+/* 유저가 파일 저장 장소를 선택하게 하는 로직 */
+// Future<void> saveFileToUserSelectedLocation(
+//     Uint8List data, String fileName) async {
+//   // 사용자가 폴더를 선택할 수 있도록 함
+//   String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+//   if (selectedDirectory == null) {
+//     // 사용자가 폴더 선택을 취소한 경우
+//     print('No directory selected');
+//     return;
+//   }
+
+//   // 선택한 경로에 파일 생성
+//   String filePath = '$selectedDirectory/$fileName';
+//   File file = File(filePath);
+
+//   // 파일에 데이터 쓰기
+//   await file.writeAsBytes(data);
+//   print('File saved to $filePath');
+// }
