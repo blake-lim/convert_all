@@ -9,6 +9,7 @@ class PDFViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("뷰어");
     return Scaffold(
       backgroundColor: const Color(0xFF30302E),
       appBar: AppBar(

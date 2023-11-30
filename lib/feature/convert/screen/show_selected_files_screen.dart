@@ -160,19 +160,15 @@ class _ShowSelectedFilesScreenState extends State<ShowSelectedFilesScreen> {
                               String extension = widget.conversionType
                                   .substring(5)
                                   .toLowerCase();
-
                               // 서버로 넘겨줄 확장자를 인자로 전달
                               await controller.convertPdfToImg(
                                   selectedFiles, extension);
                             } else if (widget.conversionType == "PDFtoDocx") {
                               // PDF를 Docx로 변환하는 API 호출
                               await controller.convertPdfToDocx(selectedFiles);
-                            } else if (widget.conversionType == "IMGtoPDF") {
+                            } else {
                               // 파일을 PDF로 변환하는 API 호출
                               await controller.convertFileToPdf(selectedFiles);
-                            } else {
-                              // 지원하지 않는 변환 유형 처리
-                              print("지원하지 않는 변환 유형입니다.");
                             }
                           }
                         },

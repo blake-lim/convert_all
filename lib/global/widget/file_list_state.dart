@@ -120,8 +120,9 @@ class _FileListState extends State<FileList> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        FolderScreen(folderPath: fileItem.path),
+                    builder: (context) => ImageViewer(
+                        imagePath: fileItem.path,
+                        name: path.basename(fileItem.path)),
                   ),
                 );
               } else if (fileExtension == '.jpeg' ||
