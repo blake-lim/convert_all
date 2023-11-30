@@ -10,6 +10,7 @@ class ImageViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("name:::$name");
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -34,9 +35,7 @@ class ImageViewer extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Image.file(
-          File(imagePath),
-        ),
+        child: Image.file(File(imagePath)),
       ),
     );
   }
